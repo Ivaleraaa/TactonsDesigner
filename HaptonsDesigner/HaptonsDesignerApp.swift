@@ -15,3 +15,6 @@ struct HaptonsDesignerApp: App {
         }
     }
 }
+// serveur qui plante / marche bien - centreon
+
+

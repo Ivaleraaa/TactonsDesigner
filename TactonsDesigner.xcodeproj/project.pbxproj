@@ -24,9 +24,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		01400D432DCB634500029307 /* HaptonsDesigner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HaptonsDesigner.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		01400D502DCB634700029307 /* HaptonsDesignerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HaptonsDesignerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		01400D5A2DCB634700029307 /* HaptonsDesignerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HaptonsDesignerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		01400D432DCB634500029307 /* TactonsDesigner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TactonsDesigner.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		01400D502DCB634700029307 /* TactonsDesignerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TactonsDesignerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		01400D5A2DCB634700029307 /* TactonsDesignerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TactonsDesignerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -85,9 +85,9 @@
 		01400D442DCB634500029307 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				01400D432DCB634500029307 /* HaptonsDesigner.app */,
-				01400D502DCB634700029307 /* HaptonsDesignerTests.xctest */,
-				01400D5A2DCB634700029307 /* HaptonsDesignerUITests.xctest */,
+				01400D432DCB634500029307 /* TactonsDesigner.app */,
+				01400D502DCB634700029307 /* TactonsDesignerTests.xctest */,
+				01400D5A2DCB634700029307 /* TactonsDesignerUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -95,9 +95,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		01400D422DCB634500029307 /* HaptonsDesigner */ = {
+		01400D422DCB634500029307 /* TactonsDesigner */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 01400D642DCB634700029307 /* Build configuration list for PBXNativeTarget "HaptonsDesigner" */;
+			buildConfigurationList = 01400D642DCB634700029307 /* Build configuration list for PBXNativeTarget "TactonsDesigner" */;
 			buildPhases = (
 				01400D3F2DCB634500029307 /* Sources */,
 				01400D402DCB634500029307 /* Frameworks */,
@@ -110,16 +110,16 @@
 			fileSystemSynchronizedGroups = (
 				01400D452DCB634500029307 /* HaptonsDesigner */,
 			);
-			name = HaptonsDesigner;
+			name = TactonsDesigner;
 			packageProductDependencies = (
 			);
 			productName = HaptonsDesigner;
-			productReference = 01400D432DCB634500029307 /* HaptonsDesigner.app */;
+			productReference = 01400D432DCB634500029307 /* TactonsDesigner.app */;
 			productType = "com.apple.product-type.application";
 		};
-		01400D4F2DCB634700029307 /* HaptonsDesignerTests */ = {
+		01400D4F2DCB634700029307 /* TactonsDesignerTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 01400D672DCB634700029307 /* Build configuration list for PBXNativeTarget "HaptonsDesignerTests" */;
+			buildConfigurationList = 01400D672DCB634700029307 /* Build configuration list for PBXNativeTarget "TactonsDesignerTests" */;
 			buildPhases = (
 				01400D4C2DCB634700029307 /* Sources */,
 				01400D4D2DCB634700029307 /* Frameworks */,
@@ -133,16 +133,16 @@
 			fileSystemSynchronizedGroups = (
 				01400D532DCB634700029307 /* HaptonsDesignerTests */,
 			);
-			name = HaptonsDesignerTests;
+			name = TactonsDesignerTests;
 			packageProductDependencies = (
 			);
 			productName = HaptonsDesignerTests;
-			productReference = 01400D502DCB634700029307 /* HaptonsDesignerTests.xctest */;
+			productReference = 01400D502DCB634700029307 /* TactonsDesignerTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		01400D592DCB634700029307 /* HaptonsDesignerUITests */ = {
+		01400D592DCB634700029307 /* TactonsDesignerUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 01400D6A2DCB634700029307 /* Build configuration list for PBXNativeTarget "HaptonsDesignerUITests" */;
+			buildConfigurationList = 01400D6A2DCB634700029307 /* Build configuration list for PBXNativeTarget "TactonsDesignerUITests" */;
 			buildPhases = (
 				01400D562DCB634700029307 /* Sources */,
 				01400D572DCB634700029307 /* Frameworks */,
@@ -156,11 +156,11 @@
 			fileSystemSynchronizedGroups = (
 				01400D5D2DCB634700029307 /* HaptonsDesignerUITests */,
 			);
-			name = HaptonsDesignerUITests;
+			name = TactonsDesignerUITests;
 			packageProductDependencies = (
 			);
 			productName = HaptonsDesignerUITests;
-			productReference = 01400D5A2DCB634700029307 /* HaptonsDesignerUITests.xctest */;
+			productReference = 01400D5A2DCB634700029307 /* TactonsDesignerUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -186,7 +186,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 01400D3E2DCB634500029307 /* Build configuration list for PBXProject "HaptonsDesigner" */;
+			buildConfigurationList = 01400D3E2DCB634500029307 /* Build configuration list for PBXProject "TactonsDesigner" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -200,9 +200,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				01400D422DCB634500029307 /* HaptonsDesigner */,
-				01400D4F2DCB634700029307 /* HaptonsDesignerTests */,
-				01400D592DCB634700029307 /* HaptonsDesignerUITests */,
+				01400D422DCB634500029307 /* TactonsDesigner */,
+				01400D4F2DCB634700029307 /* TactonsDesignerTests */,
+				01400D592DCB634700029307 /* TactonsDesignerUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -258,12 +258,12 @@
 /* Begin PBXTargetDependency section */
 		01400D522DCB634700029307 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 01400D422DCB634500029307 /* HaptonsDesigner */;
+			target = 01400D422DCB634500029307 /* TactonsDesigner */;
 			targetProxy = 01400D512DCB634700029307 /* PBXContainerItemProxy */;
 		};
 		01400D5C2DCB634700029307 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 01400D422DCB634500029307 /* HaptonsDesigner */;
+			target = 01400D422DCB634500029307 /* TactonsDesigner */;
 			targetProxy = 01400D5B2DCB634700029307 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -458,7 +458,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HaptonsDesigner.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/HaptonsDesigner";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TactonsDesigner.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/TactonsDesigner";
 			};
 			name = Debug;
 		};
@@ -476,7 +476,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HaptonsDesigner.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/HaptonsDesigner";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TactonsDesigner.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/TactonsDesigner";
 			};
 			name = Release;
 		};
@@ -515,7 +515,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		01400D3E2DCB634500029307 /* Build configuration list for PBXProject "HaptonsDesigner" */ = {
+		01400D3E2DCB634500029307 /* Build configuration list for PBXProject "TactonsDesigner" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				01400D622DCB634700029307 /* Debug */,
@@ -524,7 +524,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		01400D642DCB634700029307 /* Build configuration list for PBXNativeTarget "HaptonsDesigner" */ = {
+		01400D642DCB634700029307 /* Build configuration list for PBXNativeTarget "TactonsDesigner" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				01400D652DCB634700029307 /* Debug */,
@@ -533,7 +533,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		01400D672DCB634700029307 /* Build configuration list for PBXNativeTarget "HaptonsDesignerTests" */ = {
+		01400D672DCB634700029307 /* Build configuration list for PBXNativeTarget "TactonsDesignerTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				01400D682DCB634700029307 /* Debug */,
@@ -542,7 +542,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		01400D6A2DCB634700029307 /* Build configuration list for PBXNativeTarget "HaptonsDesignerUITests" */ = {
+		01400D6A2DCB634700029307 /* Build configuration list for PBXNativeTarget "TactonsDesignerUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				01400D6B2DCB634700029307 /* Debug */,
