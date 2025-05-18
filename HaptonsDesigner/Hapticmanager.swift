@@ -23,8 +23,32 @@ class HapticManager {
             print("Erreur moteur haptique : \(error)")
         }
     }
+    func playParametrableVibration(duration: TimeInterval, intensity: Float, sharpness: Float) {
+        guard let engine = engine else { return }
 
-    /// Simule une vibration répétée à une fréquence "perçue" (ex: 5 Hz = 5 impulsions/seconde)
+        let intensity = CHHapticEventParameter(parameterID: .hapticIntensity, value: intensity)
+        let sharpness = CHHapticEventParameter(parameterID: .hapticSharpness, value: sharpness)
+
+        let event = CHHapticEvent(
+            eventType: .hapticContinuous,
+            parameters: [intensity, sharpness],
+            relativeTime: 0.0,
+            duration: duration
+        )
+
+        do {
+            let pattern = try CHHapticPattern(events: [event], parameters: [])
+            let player = try engine.makePlayer(with: pattern)
+            try player.start(atTime: 0)
+        } catch {
+            print("Erreur de vibration continue : \(error)")
+        }
+    }
+    
+    
+    
+    
+    /// vibration répétée
     func playTransientPulse(frequencyHz: Double, durationSeconds: Double) {
         guard let engine = engine else { return }
 
@@ -124,5 +148,397 @@ class HapticManager {
         }
     }
 
+    
+    
+    
+    func playUrgency(priority: Int){
+        guard let engine = engine else { return }
+        var priorityintensity : Double = 0
+        var duration : Double = 0
+        
+        if priority == 1 {
+            priorityintensity = 0.5
+            duration = 0.3
+        }
+        else if priority == 2 {
+            priorityintensity = 0.6
+            duration = 0.6
+        }
+        else {
+            priorityintensity = 1.0
+            duration = 1.0
+        }
+        let intensity = CHHapticEventParameter(parameterID: .hapticIntensity, value: Float(priorityintensity))
+
+        let sharpness = CHHapticEventParameter(parameterID: .hapticSharpness, value: 0.5)
+
+        let event = CHHapticEvent(
+            eventType: .hapticContinuous,
+            parameters: [intensity, sharpness],
+            relativeTime: 0.0,
+            duration: duration,
+        )
+
+        do {
+            let pattern = try CHHapticPattern(events: [event], parameters: [])
+            let player = try engine.makePlayer(with: pattern)
+            try player.start(atTime: 0)
+        } catch {
+            print("Erreur de vibration continue : \(error)")
+        }
+    }
+    
+    func playDecreasingIntensityVibration(duration: TimeInterval = 2.0, sharpness: Float) {
+        guard let engine = engine else { return }
+
+        let intensityParameter = CHHapticEventParameter(parameterID: .hapticIntensity, value: 1.0)
+        let sharpnessParameter = CHHapticEventParameter(parameterID: .hapticSharpness, value: sharpness)
+
+        let event = CHHapticEvent(
+            eventType: .hapticContinuous,
+            parameters: [intensityParameter, sharpnessParameter],
+            relativeTime: 0,
+            duration: duration
+        )
+
+        let intensityCurve = CHHapticParameterCurve(
+            parameterID: .hapticIntensityControl,
+            controlPoints: [
+                .init(relativeTime: 0, value: 1.0),
+                .init(relativeTime: duration, value: 0.1)
+            ],
+            relativeTime: 0
+        )
+
+        do {
+            let pattern = try CHHapticPattern(events: [event], parameterCurves: [intensityCurve])
+            let player = try engine.makePlayer(with: pattern)
+            try player.start(atTime: 0)
+        } catch {
+            print("Erreur lors de la lecture du pattern haptique : \(error)")
+        }
+    }
+    
+    
+    func play_v_09_11_4_8(pause: TimeInterval = 0.2, repetitions: Int = 4, duration: TimeInterval = 0.3, sharpness: Float) {
+        for i in 0..<repetitions {
+            let delay = Double(i) * (duration + pause)
+            DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+                self.playDecreasingIntensityVibration(duration: duration, sharpness: sharpness)
+            }
+        }
+    }
+    
+    
+    func play_v_09_10_3_56() {
+        guard let engine = engine else { return }
+
+        var events: [CHHapticEvent] = []
+        let _: TimeInterval = 0.03 // Durée d’un pulse
+        let pulseCount = 10                   // 10 pulses avant et après la pause
+        let spacing: TimeInterval = 0.06      // Intervalle entre les pulses
+        let pauseBetweenGroups: TimeInterval = 0.5 // Pause centrale
+        let sharpness: Float = 0.9
+        let intensity: Float = 1.0
+
+        // Première séquence de pulses
+        for i in 0..<pulseCount {
+            let relativeTime = Double(i) * spacing
+            let event = CHHapticEvent(
+                eventType: .hapticTransient,
+                parameters: [
+                    CHHapticEventParameter(parameterID: .hapticSharpness, value: sharpness),
+                    CHHapticEventParameter(parameterID: .hapticIntensity, value: intensity)
+                ],
+                relativeTime: relativeTime
+            )
+            events.append(event)
+        }
+
+        // Deuxième séquence de pulses (après la pause)
+        for i in 0..<pulseCount {
+            let relativeTime = Double(i) * spacing + (Double(pulseCount) * spacing) + pauseBetweenGroups
+            let event = CHHapticEvent(
+                eventType: .hapticTransient,
+                parameters: [
+                    CHHapticEventParameter(parameterID: .hapticSharpness, value: sharpness),
+                    CHHapticEventParameter(parameterID: .hapticIntensity, value: intensity)
+                ],
+                relativeTime: relativeTime
+            )
+            events.append(event)
+        }
+
+        // Création et lecture du pattern
+        do {
+            let pattern = try CHHapticPattern(events: events, parameters: [])
+            let player = try engine.makePlayer(with: pattern)
+            try player.start(atTime: 0)
+        } catch {
+            print("Erreur lors de la lecture du pattern haptique : \(error)")
+        }
+    }
+    
+    func play_v_09_10_4_2() {
+        guard let engine = engine else { return }
+
+        var events: [CHHapticEvent] = []
+        var parameterCurves: [CHHapticParameterCurve] = []
+
+        let pulseDuration: TimeInterval = 0.12
+        let spacing: TimeInterval = 0.05
+        let baseTime: TimeInterval = 0.0
+
+        // Alternance intensité / sharpness : petit / grand / ...
+        let pattern: [(Float, Float)] = [
+            (0.3, 0.4), // petit
+            (1.0, 0.9), // grand
+            (0.3, 0.4),
+            (1.0, 0.9),
+            (0.3, 0.4),
+            (1.0, 0.9),
+            (0.3, 0.4)
+        ]
+
+        for (index, (maxIntensity, sharpness)) in pattern.enumerated() {
+            let startTime = baseTime + Double(index) * (pulseDuration + spacing)
+
+            // Événement continu avec sharpness fixe
+            let event = CHHapticEvent(
+                eventType: .hapticContinuous,
+                parameters: [
+                    CHHapticEventParameter(parameterID: .hapticSharpness, value: sharpness)
+                ],
+                relativeTime: startTime,
+                duration: pulseDuration
+            )
+            events.append(event)
+
+            // Courbe d’intensité qui monte puis descend sur un pic bref
+            let curve = CHHapticParameterCurve(
+                parameterID: .hapticIntensityControl,
+                controlPoints: [
+                    .init(relativeTime: startTime, value: 0.0),
+                    .init(relativeTime: startTime + pulseDuration / 2, value: maxIntensity),
+                    .init(relativeTime: startTime + pulseDuration, value: 0.0)
+                ],
+                relativeTime: 0
+            )
+            parameterCurves.append(curve)
+        }
+
+        do {
+            let pattern = try CHHapticPattern(events: events, parameterCurves: parameterCurves)
+            let player = try engine.makePlayer(with: pattern)
+            try player.start(atTime: 0)
+        } catch {
+            print("Erreur lors de la lecture du pattern haptique : \(error)")
+        }
+    }
+    
+    
+    
+    func playPattern_09_11_3_4_precise() {
+        guard let engine = engine else { return }
+
+        var events: [CHHapticEvent] = []
+        var parameterCurves: [CHHapticParameterCurve] = []
+
+        var timeCursor: TimeInterval = 0.0
+
+        // === 1. Vibration forte et stable ===
+        let firstDuration: TimeInterval = 0.4
+        let event1 = CHHapticEvent(
+            eventType: .hapticContinuous,
+            parameters: [
+                .init(parameterID: .hapticIntensity, value: 1.0),
+                .init(parameterID: .hapticSharpness, value: 0.6)
+            ],
+            relativeTime: timeCursor,
+            duration: firstDuration
+        )
+        events.append(event1)
+        timeCursor += firstDuration
+
+        // === 2. Vibration moyenne avec variation de sharpness ===
+        let secondDuration: TimeInterval = 0.4
+        let event2 = CHHapticEvent(
+            eventType: .hapticContinuous,
+            parameters: [
+                .init(parameterID: .hapticIntensity, value: 0.5)
+            ],
+            relativeTime: timeCursor,
+            duration: secondDuration
+        )
+        events.append(event2)
+
+        let sharpnessCurve2 = CHHapticParameterCurve(
+            parameterID: .hapticSharpnessControl,
+            controlPoints: [
+                .init(relativeTime: timeCursor, value: 0.3),
+                .init(relativeTime: timeCursor + secondDuration / 2, value: 0.8),
+                .init(relativeTime: timeCursor + secondDuration, value: 0.3)
+            ],
+            relativeTime: 0
+        )
+        parameterCurves.append(sharpnessCurve2)
+        timeCursor += secondDuration
+
+        // === 3. Triangle : intensité ET sharpness modulées ===
+        let thirdDuration: TimeInterval = 0.7
+        let event3 = CHHapticEvent(
+            eventType: .hapticContinuous,
+            parameters: [],
+            relativeTime: timeCursor,
+            duration: thirdDuration
+        )
+        events.append(event3)
+
+        let intensityCurve3 = CHHapticParameterCurve(
+            parameterID: .hapticIntensityControl,
+            controlPoints: [
+                .init(relativeTime: timeCursor, value: 0.0),
+                .init(relativeTime: timeCursor + thirdDuration / 2, value: 1.0),
+                .init(relativeTime: timeCursor + thirdDuration, value: 0.0)
+            ],
+            relativeTime: 0
+        )
+
+        let sharpnessCurve3 = CHHapticParameterCurve(
+            parameterID: .hapticSharpnessControl,
+            controlPoints: [
+                .init(relativeTime: timeCursor, value: 0.3),
+                .init(relativeTime: timeCursor + thirdDuration / 2, value: 0.8),
+                .init(relativeTime: timeCursor + thirdDuration, value: 0.3)
+            ],
+            relativeTime: 0
+        )
+
+        parameterCurves.append(intensityCurve3)
+        parameterCurves.append(sharpnessCurve3)
+
+        // === Création et lecture du pattern ===
+        do {
+            let pattern = try CHHapticPattern(events: events, parameterCurves: parameterCurves)
+            let player = try engine.makePlayer(with: pattern)
+            try player.start(atTime: 0)
+        } catch {
+            print("Erreur lors de la lecture du pattern détaillé : \(error)")
+        }
+    }
+    
+    // tuu tii tuu
+    func play_v_10_23_1_16(){
+        let duration = 1.1 / 3
+
+        self.playParametrableVibration(duration: duration, intensity: 1.0, sharpness: 0.2)
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + duration) {
+            self.playParametrableVibration(duration: duration, intensity: 1.0, sharpness: 0.7)
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + duration) {
+                self.playParametrableVibration(duration: duration, intensity: 1.0, sharpness: 0.2)
+            }
+        }
+    }
+    // tu tud    tu tud    tu tud
+    func play_v_09_12_1_53() {
+        let pulseDuration: TimeInterval = 0.06
+            let shortGap: TimeInterval = 0.04 // entre les 2 pulses d’une paire
+            let longGap: TimeInterval = 0.3   // entre les paires
+
+            let timestamps: [TimeInterval] = [
+                0.0,
+                pulseDuration + shortGap,
+                pulseDuration * 2 + shortGap + longGap,
+
+                (pulseDuration * 3 + shortGap * 2 + longGap),
+                (pulseDuration * 4 + shortGap * 2 + longGap * 2),
+
+                (pulseDuration * 5 + shortGap * 3 + longGap * 2),
+                (pulseDuration * 6 + shortGap * 3 + longGap * 3)
+            ]
+
+            for (i, time) in timestamps.prefix(6).enumerated() {
+                DispatchQueue.main.asyncAfter(deadline: .now() + time) {
+                    self.playParametrableVibration(duration: pulseDuration, intensity: 1.0, sharpness: 0.4)
+                }
+            }
+    }
+
+    func play_v_09_10_12_2() {
+        guard let engine = engine else { return }
+
+        var events: [CHHapticEvent] = []
+        var curves: [CHHapticParameterCurve] = []
+
+        let pulseDuration: TimeInterval = 0.6
+        let pause: TimeInterval = 0.125
+        let count = 4
+        let totalDuration = TimeInterval(count) * (pulseDuration + pause)
+
+        for i in 0..<count {
+            let startTime = Double(i) * (pulseDuration + pause)
+
+            // Haptic event
+            let event = CHHapticEvent(
+                eventType: .hapticContinuous,
+                parameters: [],
+                relativeTime: startTime,
+                duration: pulseDuration
+            )
+            events.append(event)
+
+            // Courbe d'intensité (triangle fluide)
+            let intensityCurve = CHHapticParameterCurve(
+                parameterID: .hapticIntensityControl,
+                controlPoints: [
+                    .init(relativeTime: startTime, value: 0.0),
+                    .init(relativeTime: startTime + pulseDuration / 2, value: 1.0),
+                    .init(relativeTime: startTime + pulseDuration, value: 0.0)
+                ],
+                relativeTime: 0
+            )
+            curves.append(intensityCurve)
+
+            // Courbe de sharpness douce
+            let sharpnessCurve = CHHapticParameterCurve(
+                parameterID: .hapticSharpnessControl,
+                controlPoints: [
+                    .init(relativeTime: startTime, value: 0.2),
+                    .init(relativeTime: startTime + pulseDuration / 2, value: 0.5),
+                    .init(relativeTime: startTime + pulseDuration, value: 0.2)
+                ],
+                relativeTime: 0
+            )
+            curves.append(sharpnessCurve)
+        }
+
+        do {
+            let pattern = try CHHapticPattern(events: events, parameterCurves: curves)
+            let player = try engine.makePlayer(with: pattern)
+            try player.start(atTime: 0)
+        } catch {
+            print("Erreur lors de la lecture du pattern v-09-10-12-2 : \(error)")
+        }
+    }
+
+    func play_v_10_18_11_11(){
+        let duration = 1.1 / 3
+
+        self.playParametrableVibration(duration: duration, intensity: 1.0, sharpness: 1.0)
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + duration) {
+            self.playParametrableVibration(duration: duration, intensity: 1.0, sharpness: 0.5)
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + duration) {
+                self.playParametrableVibration(duration: duration, intensity: 1.0, sharpness: 0.2)
+            }
+        }
+    }
+
+
+
+    
    }
 

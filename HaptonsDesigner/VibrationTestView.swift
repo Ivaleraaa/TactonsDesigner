@@ -26,7 +26,7 @@ struct VibrationTestView: View {
             .foregroundColor(.white)
             .cornerRadius(8)
 
-            Text("Comment la classer ?").font(.headline)
+            Text("À quoi vous fait-elle penser ? ").font(.headline)
 
             let columns = [
                 GridItem(.flexible()),
@@ -34,7 +34,7 @@ struct VibrationTestView: View {
             ]
 
             LazyVGrid(columns: columns, spacing: 12) {
-                ForEach(["Notification", "Erreur", "Appel", "Ouverture", "Fermeture", "Fichier"], id: \.self) { response in
+                ForEach(["Whatsapp", "SMS", "Réseau social", "Groupe", "Personne Normale", "Famille", "Priorité faible", "Priorité moyenne", "Priorité élevée"], id: \.self) { response in
                     Button(response) {
                         store.responses[vibrationID] = response
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
