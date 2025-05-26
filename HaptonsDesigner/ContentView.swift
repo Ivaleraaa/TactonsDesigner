@@ -154,6 +154,52 @@ struct ContentView: View {
                                 },
                                 store: store)
                         }
+                        NavigationLink("test 14"){
+                            VibrationTestView(
+                                vibrationID: "test14",
+                                label: "v_les_tzars",
+                                vibrationAction: {
+                                    haptics.play_les_tzars()
+                                },
+                                store: store)
+                        }
+                        NavigationLink("test 15"){
+                            VibrationTestView(
+                                vibrationID: "test15",
+                                label: "v_la_main_verte",
+                                vibrationAction: {
+                                    haptics.play_la_main_verte()
+                                },
+                                store: store)
+                        }
+                        NavigationLink("test 16"){
+                            VibrationTestView(
+                                vibrationID: "test16",
+                                label: "v_miss_paramount",
+                                vibrationAction: {
+                                    haptics.play_miss_paramout()
+                                },
+                                store: store)
+                        }
+                        NavigationLink("test 17"){
+                            VibrationTestView(
+                                vibrationID: "test17",
+                                label: "v_lapologie",
+                                vibrationAction: {
+                                    haptics.play_l_apologie()
+                                },
+                                store: store)
+                        }
+                        NavigationLink("test 18"){
+                            VibrationTestView(
+                                vibrationID: "test18",
+                                label: "v_ciel",
+                                vibrationAction: {
+                                    haptics.playRisingSharpnessVibration(duration: 1.0, intensity: 1.0, sharpnessMin: 1.0, sharpnessMax: 0.1)
+                                },
+                                store: store)
+                        }
+
                     }
                 }
                 Divider()
