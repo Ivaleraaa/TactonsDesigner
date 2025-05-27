@@ -2,15 +2,56 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject var store = VibrationResponseStore()
+    @State private var exportFileURL: URL?
     let haptics = HapticManager()
 
     var body: some View {
-        
         NavigationStack {
             VStack(spacing: 30) {
-                Text("Tests Haptiques").font(.largeTitle)
+                SwiftUICore.Text("Tests Haptiques").font(.largeTitle)
+
                 ScrollView {
                     VStack(spacing: 20) {
+                        // Tous tes tests (inchangés)
+                        testNavigationLinks()
+                    }
+                }
+
+                Divider()
+
+                SwiftUICore.Text("Réponses enregistrées :")
+                    .font(.headline)
+
+                List {
+                    ForEach(store.responses.sorted(by: { $0.key < $1.key }), id: \.key) { key, value in
+                        VStack(alignment: .leading) {
+                            Text("🔹 \(key)").bold()
+                            Text("Type : \(value.type)")
+                            Text("Source : \(value.source)")
+                            Text("Priorité : \(value.priority)")
+                            Text("Ordre : \(value.clickOrder.joined(separator: " > "))")
+                        }
+                    }
+                }.frame(height: 200)
+
+                Divider()
+
+                Button("💾 Générer fichier JSON") {
+                    exportFileURL = store.exportToFileURL()
+                }
+
+                if let fileURL = exportFileURL {
+                    ShareLink("📤 Exporter via AirDrop / Mail / Fichiers", item: fileURL)
+                        .padding(.top, 5)
+                }
+            }
+            .padding()
+        }
+    }
+
+    @ViewBuilder
+    private func testNavigationLinks() -> some View {
+        Group {
                         
                         NavigationLink("Test 1 : vibration forte") {
                             VibrationTestView(
@@ -202,18 +243,5 @@ struct ContentView: View {
 
                     }
                 }
-                Divider()
-
-                Text("Réponses enregistrées :")
-                    .font(.headline)
-
-                List {
-                    ForEach(store.responses.sorted(by: { $0.key < $1.key }), id: \.key) { key, value in
-                        Text("\(key) → \(value)")
-                    }
-                }.frame(height: 200)
-            }
-            .padding()
         }
-    }
-}
+    
